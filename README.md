@@ -1,4 +1,4 @@
-# Initialize git locally (if not already done)
+# Initialize git locally
 git init
 
 # Create the repository on GitHub using the gh CLI
@@ -17,4 +17,5 @@ git commit -m "Initial commit for Actions setup"
 
 # Push the main branch to GitHub
 git branch -M main
+git remote set-url origin https://github.com/oibiyemi/actions-demo.git
 git push -u origin main
