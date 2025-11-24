@@ -19,3 +19,32 @@ git commit -m "Initial commit for Actions setup"
 git branch -M main
 git remote set-url origin https://github.com/oibiyemi/actions-demo.git
 git push -u origin main
+
+# Create the necessary directory structure
+mkdir -p .github/workflows
+
+# Create a sample YAML workflow file using the 'touch' command
+touch .github/workflows/ci-demo.yml
+
+# Open the new file in VS Code for editing
+code .github/workflows/ci-demo.yml
+
+
+
+name: Simple Greeting
+
+on: [push]
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Display Message
+        run: echo "Hello, GitHub Actions is running successfully!"
+      
+      - name: Check Branch
+        run: |
+          echo "This job runs on the ${{ github.ref_name }} branch."
