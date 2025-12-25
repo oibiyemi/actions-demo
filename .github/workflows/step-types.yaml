@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: 3. Actions Hello
-      uses: actions/hello-world-javascript-action@10ea8e55c24e3b29834eb4bc3a9b459fb6196678
+      uses: actions/hello-world-javascript-action@47eaec9b0ef67e9ce32c6bac2bddb1f1223df554
       with: 
         who-to-greet: "From an action in the GitHub Actions Marketplace"
   
