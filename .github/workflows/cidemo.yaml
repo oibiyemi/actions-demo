@@ -1,0 +1,15 @@
+name: Whatsapp-greeting
+
+on:
+    # push:
+    #   branches:
+    #         -  main
+    workflow_dispatch:
+jobs:
+  hello_whatsapp:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 1. Checkout Code
+      uses: actions/checkout@v4
+    - name: 2. Shoutout Message
+      run: echo We Outside!!!!
