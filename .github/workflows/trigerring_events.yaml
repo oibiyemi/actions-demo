@@ -1,0 +1,22 @@
+name: Triggering Events
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        types: ['opened','synchronize','reopened']
+        paths:
+            - ".github/workflows/*.yaml"
+jobs:
+    trigger-events:
+        runs-on: ubuntu-latest
+        steps:
+            - run: |
+                echo "=== $GITHUB_EVENT_NAME payload" && \
+                if [[ echo $? == 0 ]];
+                    cat "$GITHUB_EVENT_PATH"
+                    echo "Success!"
+                fi
+
+
