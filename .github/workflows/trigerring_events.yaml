@@ -13,8 +13,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - run: |
-                echo "=== $GITHUB_EVENT_NAME payload" && \
-                if [[ echo $? == 0 ]];
+                echo "=== $GITHUB_EVENT_NAME payload ==="
+                if [[ $? == 0 ]]; then
                     cat "$GITHUB_EVENT_PATH"
                     echo "Success!"
                 fi
