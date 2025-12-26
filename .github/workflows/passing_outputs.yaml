@@ -1,0 +1,46 @@
+name: Passing Variables Between Jobs
+
+on:
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        # 🚨 THIS IS WHERE THE JOB "EXPOSES" DATA
+        # We are saying:
+        # "Take a value produced by a step and make it available to other jobs"
+        outputs:
+            image_tag: ${{ steps.generate_tag.outputs.tag }}
+        steps:
+            - name: 1. Create Image Tag and Store 
+              id: generate_tag  # Creates the unique identifier of the steps dictionary
+              run: |
+                TAG="v1.0.$RANDOM"
+                # Write to the file GitHub provided
+                echo "tag=$TAG" >> $GITHUB_OUTPUT
+                echo ENV_TAG=$TAG >> $GITHUB_ENV
+            - name: 2. Inspect Values Inside Build
+              run: |
+                echo "=== Value for GITHUB_OUTPUT ==="
+                echo "GITHUB_OUTPUT Output:  ${{ steps.generate_tag.outputs.tag }}"
+                echo ""
+                echo "=== Value for GITHUB_ENV ==="
+                echo "GITHUB_ENV Output: $ENV_TAG" 
+    # Declare dependency Using **needs
+    deploy:
+        runs-on: ubuntu-latest
+        # THIS IS THE BRIDGE
+        # Without this, the job cannot see build.outputs
+        needs: build
+        steps:
+            - name: 1. Deploy Using Github Output
+              run: |
+                echo "Deploying version:"
+                echo "GITHUB_OUTPUT Output: ${{ needs.build.outputs.image_tag }}"
+
+            - name: 2. Deploy Using Github Env
+              run: |
+                echo "Deploying version:"
+                echo "GITHUB_ENV Output: $ENV_TAG"
+        
