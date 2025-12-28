@@ -23,7 +23,7 @@ jobs:
         - name: 1. Download Artifact File
           uses: actions/download-artifact@v4
           with:
-              name: downloaded-artifact
+              name: artifact-file
         
         - name: validate-artifact
           run: cat artifact.txt
